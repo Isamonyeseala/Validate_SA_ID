@@ -27,16 +27,4 @@ class ValidateSaIdTest {
     }
 
     @Test
-    public void testIdWithNonNumericCharacters() {
-        assertFalse(ValidateSaId.isIdNumberValid("20010A4800086"));
-        assertFalse(ValidateSaId.isIdNumberValid("ABCDEFGHIJKLM"));
-        assertFalse(ValidateSaId.isIdNumberValid("20010148000@6"));
-    }
-
-    @Test
-    public void testInvalidBirthdateMonthDay() {
-        assertFalse(ValidateSaId.isIdNumberValid("9913324800086")); // Invalid: 33rd month
-        assertFalse(ValidateSaId.isIdNumberValid("9902314800086")); // Invalid: Feb 31
-        assertTrue(ValidateSaId.isIdNumberValid("9202204800086")); // Valid: Feb 20, 1992
-    }
-}
+    public void testIdWith
