@@ -1,5 +1,9 @@
 package org.example;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class ValidateSaId {
 
     public static boolean isIdNumberValid(String id) {
@@ -13,8 +17,23 @@ public class ValidateSaId {
             return false;
         }
 
-        // Valid so far, future checks (like birthdate, gender, etc.) will go here
-        return true;
+        // Extract birthdate (YYMMDD)
+        String yy = id.substring(0, 2);
+        String mm = id.substring(2, 4);
+        String dd = id.substring(4, 6);
+
+        int year = Integer.parseInt(yy);
+        year += (year <= 29) ? 2000 : 1900;
+
+        String birthdate = String.format("%04d-%s-%s", year, mm, dd);
+
+        try {
+            LocalDate.parse(birthdate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+
+        return true; // More validation will follow later
     }
 
     public String getGreeting() {
