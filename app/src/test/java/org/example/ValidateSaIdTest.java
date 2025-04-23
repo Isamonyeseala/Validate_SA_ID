@@ -13,23 +13,30 @@ class ValidateSaIdTest {
 
     @Test
     public void testTooShortIdNumber() {
-        assertFalse(ValidateSaId.isIdNumberValid("2001014")); // too short
+        assertFalse(ValidateSaId.isIdNumberValid("2001014"));
     }
 
     @Test
     public void testTooLongIdNumber() {
-        assertFalse(ValidateSaId.isIdNumberValid("20010148000861")); // too long
+        assertFalse(ValidateSaId.isIdNumberValid("20010148000861"));
     }
 
     @Test
     public void testValidLengthIdNumber() {
-        assertTrue(ValidateSaId.isIdNumberValid("2001014800086")); // correct length
+        assertTrue(ValidateSaId.isIdNumberValid("2001014800086"));
     }
 
     @Test
     public void testIdWithNonNumericCharacters() {
-        assertFalse(ValidateSaId.isIdNumberValid("20010A4800086")); // contains 'A'
-        assertFalse(ValidateSaId.isIdNumberValid("ABCDEFGHIJKLM")); // all letters
-        assertFalse(ValidateSaId.isIdNumberValid("20010148000@6")); // special char
+        assertFalse(ValidateSaId.isIdNumberValid("20010A4800086"));
+        assertFalse(ValidateSaId.isIdNumberValid("ABCDEFGHIJKLM"));
+        assertFalse(ValidateSaId.isIdNumberValid("20010148000@6"));
+    }
+
+    @Test
+    public void testInvalidBirthdateMonthDay() {
+        assertFalse(ValidateSaId.isIdNumberValid("9913324800086")); // Invalid: 33rd month
+        assertFalse(ValidateSaId.isIdNumberValid("9902314800086")); // Invalid: Feb 31
+        assertTrue(ValidateSaId.isIdNumberValid("9202204800086")); // Valid: Feb 20, 1992
     }
 }
