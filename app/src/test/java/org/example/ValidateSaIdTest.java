@@ -54,4 +54,16 @@ class ValidateSaIdTest {
         assertTrue(ValidateSaId.isIdNumberValid("9202205000086")); // Male: 5000
         assertTrue(ValidateSaId.isIdNumberValid("9202209999086")); // Male: 9999
     }
+    @Test
+    public void testCitizenshipDigitValid() {
+        assertTrue(ValidateSaId.isIdNumberValid("9202205000086")); // 0 - SA citizen
+        assertTrue(ValidateSaId.isIdNumberValid("9202205000186")); // 1 - Perm resident
+    }
+
+    @Test
+    public void testCitizenshipDigitInvalid() {
+        assertFalse(ValidateSaId.isIdNumberValid("9202205000286")); // 2 - Invalid
+        assertFalse(ValidateSaId.isIdNumberValid("9202205000986")); // 9 - Invalid
+    }
+
 }
