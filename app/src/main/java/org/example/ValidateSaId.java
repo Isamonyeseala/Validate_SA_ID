@@ -8,12 +8,10 @@ public class ValidateSaId {
 
     public static boolean isIdNumberValid(String id) {
         if (id == null || id.length() != 13) {
-            System.out.println("Invalid: Not 13 digits");
             return false;
         }
 
         if (!id.matches("\\d+")) {
-            System.out.println("Invalid: Contains non-digit characters");
             return false;
         }
 
@@ -30,19 +28,21 @@ public class ValidateSaId {
             LocalDate date = LocalDate.parse(birthdateStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             if (!String.format("%02d", date.getDayOfMonth()).equals(dd) ||
                 !String.format("%02d", date.getMonthValue()).equals(mm)) {
-                System.out.println("Date mismatch with ID: " + birthdateStr);
                 return false;
             }
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid birthdate: " + birthdateStr);
             return false;
         }
 
-        // Validate gender digits (SSSS)
-        String genderCode = id.substring(6, 10);
-        int genderValue = Integer.parseInt(genderCode);
+        // Validate gender digits
+        int genderValue = Integer.parseInt(id.substring(6, 10));
         if (genderValue < 0 || genderValue > 9999) {
-            System.out.println("Invalid gender code: " + genderCode);
+            return false;
+        }
+
+        // Validate citizenship digit (0 or 1)
+        char citizenship = id.charAt(10);
+        if (citizenship != '0' && citizenship != '1') {
             return false;
         }
 
